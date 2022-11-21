@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Card = () => {
-  const [scores, setScores] = useState([]);
+  const [scores] = useState([]);
   const [isChecked, setIsChecked] = useState(true);
   allCountryScores.forEach((country) => {
     scores.push(country.scores);
