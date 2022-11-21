@@ -1,15 +1,34 @@
 import React from "react";
 import allCountryScores from "./scores";
 import styled from "styled-components";
+import { useState } from "react";
 
 const Card = () => {
-  let scores = [];
+  const [scores, setScores] = useState([]);
+  const [isChecked, setIsChecked] = useState(true);
   allCountryScores.forEach((country) => {
     scores.push(country.scores);
   });
-  scores.map((item) => item.sort(({ s: a }, { s: b }) => b - a));
+  scores.map((item) =>
+    item.sort(({ s: a }, { s: b }) => (isChecked ? b - a : a - b))
+  );
+  const ClickHandel = () => {
+    setIsChecked(!isChecked);
+  };
   return (
-    <div>
+    <div className="AllCards">
+      <div>
+        <button onClick={ClickHandel} className="Button">
+          ascending to descending
+        </button>
+        <span className={isChecked ? "Descend" : "NotShowing"}>
+          Showing Descend
+        </span>
+        <span className={!isChecked ? "Ascend" : "NotShowing"}>
+          Showing Ascend
+        </span>
+      </div>
+
       {allCountryScores
         .sort(function (a, b) {
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
@@ -40,6 +59,7 @@ const Country = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: rgb(114, 170, 188);
   margin: 1.2rem;
   border-style: solid;
   border-radius: 1.2rem;
@@ -47,10 +67,11 @@ const Country = styled.div`
   gap: 15rem;
   min-width: 20rem;
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    color: white;
   }
   h3 {
-    font-size: 2rem;
+    font-size: 1.5em;
   }
 `;
 
@@ -61,8 +82,8 @@ const CardHolder = styled.div`
   align-items: center;
   background-color: lightblue;
   border-radius: 2rem;
-  padding: 2rem 6rem;
-  margin: 2rem;
+  padding: 0rem 15rem 0rem 15rem;
+  margin: 0.5rem;
 `;
 
 export default Card;
