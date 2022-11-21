@@ -10,21 +10,27 @@ const Card = () => {
   scores.map((item) => item.sort(({ s: a }, { s: b }) => b - a));
   return (
     <div>
-      {allCountryScores.map((country) => {
-        return (
-          <CardHolder>
-            <h1>HIGH SCORES: {country.name}</h1>
-            {country.scores.map((score) => {
-              return (
-                <Country>
-                  <h2>{score.n}:</h2>
-                  <h3>{score.s}</h3>
-                </Country>
-              );
-            })}
-          </CardHolder>
-        );
-      })}
+      {allCountryScores
+        .sort(function (a, b) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+          return 0;
+        })
+        .map((country) => {
+          return (
+            <CardHolder>
+              <h1>HIGH SCORES: {country.name}</h1>
+              {country.scores.map((score) => {
+                return (
+                  <Country>
+                    <h2>{score.n}:</h2>
+                    <h3>{score.s}</h3>
+                  </Country>
+                );
+              })}
+            </CardHolder>
+          );
+        })}
     </div>
   );
 };
