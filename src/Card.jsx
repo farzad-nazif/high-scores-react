@@ -6,6 +6,13 @@ import { useState } from "react";
 const Card = () => {
   const [scores] = useState([]);
   const [isChecked, setIsChecked] = useState(true);
+  let allScores = [];
+  allCountryScores.forEach((item) => {
+    item.scores.forEach((score) => {
+      allScores.push(score);
+    });
+  });
+  allScores.sort(({ s: a }, { s: b }) => (isChecked ? b - a : a - b));
   allCountryScores.forEach((country) => {
     scores.push(country.scores);
   });
@@ -28,7 +35,17 @@ const Card = () => {
           Showing Ascend
         </span>
       </div>
-
+      <CardHolder>
+        <h1>All of world's Score</h1>
+        {allScores.map((score) => {
+          return (
+            <Country>
+              <h2>{score.n}:</h2>
+              <h3>{score.s}</h3>
+            </Country>
+          );
+        })}
+      </CardHolder>
       {allCountryScores
         .sort(function (a, b) {
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
